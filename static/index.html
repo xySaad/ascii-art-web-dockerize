@@ -20,13 +20,18 @@
           <span id="dark" class="material-symbols-outlined"> dark_mode </span>
         </div>
       </header>
-      <textarea
-        id="inputField"
-        rows="4"
-        cols="50"
-        placeholder="Enter your text here..."
-        maxlength="255"
-      ></textarea>
+      <div class="inputWraper">
+        <textarea
+          id="inputField"
+          rows="4"
+          cols="50"
+          placeholder="Enter your text here..."
+          maxlength="300"
+        ></textarea>
+        <span id="clear" class="material-symbols-outlined">
+          delete_forever
+        </span>
+      </div>
       <button id="convertButton" type="submit">Convert</button>
       <pre class="ascii"></pre>
     </main>

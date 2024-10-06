@@ -7,19 +7,37 @@ main {
     overflow: hidden;
 }
 
-textarea {
-    padding: 10px;
+.inputWraper {
+    position: relative;
+    width: 40%;
+    height: 20vh;
+    display: flex;
     margin: 10px;
-    font-size: 20px;
-    width: 30%;
-    height: 10vh;
+}
+
+
+#clear {
+    position: absolute;
+    top: -30px;
+    visibility: hidden;
+}
+
+.inputWraper:hover #clear {
+    visibility: visible;
+    right: 10px;
+    top: 10px;
+}
+
+textarea {
+    text-wrap: nowrap;
     resize: none;
     border: none;
     border-radius: 5px;
-    background-color: rgba(0, 141, 141, 0.356);
     color: var(--text);
-    text-decoration: none;
-
+    background-color: rgba(0, 141, 141, 0.356);
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
 }
 
 header {
@@ -70,4 +88,10 @@ body:has(#tm:checked) #convertButton {
 .ascii {
     width: 60%;
     overflow: scroll;
+}
+
+@media screen and (max-width: 500px) {
+    header h1 {
+        font-size: 40px;
+    }
 }
