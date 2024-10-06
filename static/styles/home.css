@@ -95,3 +95,11 @@ body:has(#tm:checked) #convertButton {
         font-size: 40px;
     }
 }
+
+.banners {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}

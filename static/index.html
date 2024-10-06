@@ -20,13 +20,21 @@
           <span id="dark" class="material-symbols-outlined"> dark_mode </span>
         </div>
       </header>
+      <div class="banners">
+        <p>select banner:</p>
+        <select id="banners">
+          <option value="standard">standard</option>
+          <option value="shadow">shadow</option>
+          <option value="thinkertoy">thinkertoy</option>
+        </select>
+      </div>
       <div class="inputWraper">
         <textarea
           id="inputField"
           rows="4"
           cols="50"
           placeholder="Enter your text here..."
-          maxlength="300"
+          maxlength="500"
         ></textarea>
         <span id="clear" class="material-symbols-outlined">
           delete_forever
