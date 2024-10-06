@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"ascii-art-web/utils"
+	"ascii-art-web/ascii/utils"
 )
 
 type Args struct {
@@ -33,7 +33,7 @@ func Generate(args Args) (ascii string, errs error) {
 		return "\n", nil
 	}
 	// Split the input based on the newline delimiter
-	inputWords := strings.Split(userInput, "\\n")
+	inputWords := strings.Split(userInput, "\n")
 
 	if utils.IsEmpty(inputWords) {
 		inputWords = inputWords[:len(inputWords)-1]

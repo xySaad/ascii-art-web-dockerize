@@ -5,7 +5,7 @@ func CleanString(s string) string {
 	var cleanString []rune
 
 	for _, r := range s {
-		if r >= 32 && r <= 126 { // Check if the character is printable
+		if (r >= 32 && r <= 126) || r == 10 { // Check if the character is printable
 			cleanString = append(cleanString, r)
 		}
 	}
