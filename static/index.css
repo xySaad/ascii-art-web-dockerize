@@ -1,4 +1,4 @@
-body#white {
+body:has(#tm:checked) {
     --text: hsl(246, 76%, 5%);
     --background: hsl(240, 60%, 99%);
     --primary: hsl(243, 68%, 48%);
@@ -6,7 +6,7 @@ body#white {
     --accent: hsl(242, 100%, 62%);
 }
 
-body#dark {
+body {
     --text: hsl(243, 76%, 95%);
     --background: hsl(240, 60%, 1%);
     --primary: hsl(243, 68%, 52%);

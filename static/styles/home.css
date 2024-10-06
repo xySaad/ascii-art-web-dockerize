@@ -29,11 +29,22 @@ header {
     justify-content: center;
 }
 
-#theme-switcher span {
+.theme-switcher {
     position: absolute;
     right: 15px;
     bottom: 50%;
     transform: translateY(50%);
+}
+
+#tm {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    margin: 0;
+}
+
+.theme-switcher span {
     font-size: 35px;
 }
 
@@ -41,12 +52,12 @@ header {
     padding: 10px 20px;
     color: var(--text);
     border: none;
-    background: var(--secondary);
     border-radius: 10px;
+    background: var(--primary);
 }
 
-#dark #convertButton {
-    background: var(--primary);
+body:has(#tm:checked) #convertButton {
+    background: var(--secondary);
 }
 
 #convertButton:hover {
