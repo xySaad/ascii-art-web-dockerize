@@ -41,10 +41,14 @@ func Ascii(res http.ResponseWriter, req *http.Request) {
 		http.Error(res, "400 - bad requestc", http.StatusBadRequest)
 		return
 	}
+	if len([]rune(body[0])) > 500 {
+		http.Error(res, "413 - payload too large", http.StatusRequestEntityTooLarge)
+		return
+	}
 	args := ascii.Args{Text: body[0], BannerName: body[1]}
 	asciiText, err := ascii.Generate(args)
 	if err != nil {
-		http.Error(res, "500", http.StatusInternalServerError)
+		http.Error(res, "500 - internal server error", http.StatusInternalServerError)
 		return
 	}
 	res.Header().Set("Content-Type", "text/plain")
