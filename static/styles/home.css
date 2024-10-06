@@ -4,6 +4,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 textarea {
@@ -64,4 +65,9 @@ body:has(#tm:checked) #convertButton {
     box-shadow: 0 0 10px 3px white;
     padding: 15px 25px;
     font-weight: 700;
+}
+
+.ascii {
+    width: 60%;
+    overflow: scroll;
 }
