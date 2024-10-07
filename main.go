@@ -12,7 +12,6 @@ var (
 )
 
 func main() {
-	fmt.Println("server is running on port:", Port)
 	err := server.Run(Adress, Port)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
