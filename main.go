@@ -12,6 +12,10 @@ var (
 )
 
 func main() {
+	if len(os.Args) > 1 {
+		fmt.Fprintln(os.Stderr, "too many arguments")
+		return
+	}
 	err := server.Run(Adress, Port)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)

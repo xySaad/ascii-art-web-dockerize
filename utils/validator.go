@@ -30,3 +30,20 @@ func IsValidBanner(BannerName string) bool {
 	_, err := os.Stat("./assets/banners/" + BannerName + ".txt")
 	return !os.IsNotExist(err)
 }
+
+func GetBanners() (string, error) {
+	// Specify the directory you want to list files from
+	dir := "./assets/banners"
+	banners := ""
+	// Read the directory entries
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return "", nil
+	}
+
+	// Loop through the directory entries and print their names
+	for _, entry := range entries {
+		banners += entry.Name()[:len(entry.Name())-4] + ","
+	}
+	return banners, nil
+}

@@ -16,7 +16,7 @@ func Run(adress, port string) error {
 	fmt.Println("server is running on:", temp+":"+port)
 
 	http.HandleFunc("/", StaticHandler)
-	http.HandleFunc("/api/v1/ascii", api.Ascii)
+	http.HandleFunc("/api/v1/ascii/", api.Ascii)
 
 	err := http.ListenAndServe(adress+":"+port, nil)
 	if err != nil {
