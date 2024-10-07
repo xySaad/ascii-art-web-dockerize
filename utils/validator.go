@@ -1,5 +1,7 @@
 package utils
 
+import "os"
+
 // Cleanstring removes all unprintable characters from a string
 func CleanString(s string) string {
 	var cleanString []rune
@@ -20,4 +22,10 @@ func IsEmpty(text []string) bool {
 		}
 	}
 	return true
+}
+
+func IsValidBanner(BannerName string) bool {
+	_, err := os.Stat(BannerName)
+
+	return os.IsExist(err)
 }

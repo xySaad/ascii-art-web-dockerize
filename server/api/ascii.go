@@ -2,7 +2,7 @@ package api
 
 import (
 	"ascii-art-web/ascii"
-	"fmt"
+	"ascii-art-web/utils"
 	"io"
 	"net/http"
 	"net/url"
@@ -26,19 +26,18 @@ func Ascii(res http.ResponseWriter, req *http.Request) {
 	body := strings.Split(rawBody, "&")
 
 	if len(body[0]) < 6 || body[0][:6] != "input=" || len(body[1]) < 7 || body[1][:7] != "banner=" {
-		http.Error(res, "400 - bad requesta", http.StatusBadRequest)
+		http.Error(res, "400 - bad request", http.StatusBadRequest)
 		return
 	}
 	var err error
 	body[0], err = url.QueryUnescape(body[0][6:])
 	if err != nil {
-		http.Error(res, "400 - bad requestb", http.StatusBadRequest)
+		http.Error(res, "400 - bad request", http.StatusBadRequest)
 		return
 	}
 	body[1], err = url.QueryUnescape(body[1][7:])
 	if err != nil {
-		fmt.Println(err)
-		http.Error(res, "400 - bad requestc", http.StatusBadRequest)
+		http.Error(res, "400 - bad request", http.StatusBadRequest)
 		return
 	}
 	if len([]rune(body[0])) > 500 {
@@ -46,6 +45,10 @@ func Ascii(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 	args := ascii.Args{Text: body[0], BannerName: body[1]}
+	if !utils.IsValidBanner(args.BannerName) {
+		http.Error(res, "400 - bad request", http.StatusBadRequest)
+		return
+	}
 	asciiText, err := ascii.Generate(args)
 	if err != nil {
 		http.Error(res, "500 - internal server error", http.StatusInternalServerError)

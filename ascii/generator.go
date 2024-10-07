@@ -1,11 +1,10 @@
 package ascii
 
 import (
+	"ascii-art-web/utils"
 	"errors"
 	"os"
 	"strings"
-
-	"ascii-art-web/ascii/utils"
 )
 
 type Args struct {
