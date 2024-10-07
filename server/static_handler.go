@@ -7,15 +7,12 @@ import (
 )
 
 func StaticHandler(res http.ResponseWriter, req *http.Request) {
-	if req.Method != "GET" {
-		http.Error(res, "405 - method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
 
 	fs := http.FileServer(http.Dir("./static"))
 
 	// Attempt to open the requested file
 	_, err := os.Stat("./static" + req.URL.Path)
+
 	if os.IsNotExist(err) {
 		// Set the 404 status code
 		res.WriteHeader(http.StatusNotFound)
@@ -31,6 +28,11 @@ func StaticHandler(res http.ResponseWriter, req *http.Request) {
 		if err != nil {
 			fmt.Println(err)
 		}
+		return
+	}
+
+	if req.Method != "GET" {
+		http.Error(res, "405 - method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
