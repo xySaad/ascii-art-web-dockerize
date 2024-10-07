@@ -1,6 +1,8 @@
 package utils
 
-import "os"
+import (
+	"os"
+)
 
 // Cleanstring removes all unprintable characters from a string
 func CleanString(s string) string {
@@ -25,7 +27,6 @@ func IsEmpty(text []string) bool {
 }
 
 func IsValidBanner(BannerName string) bool {
-	_, err := os.Stat(BannerName)
-
-	return os.IsExist(err)
+	_, err := os.Stat("./assets/banners/" + BannerName + ".txt")
+	return !os.IsNotExist(err)
 }
