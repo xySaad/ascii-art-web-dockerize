@@ -13,7 +13,7 @@ import (
 
 func Ascii(res http.ResponseWriter, req *http.Request) {
 	switch req.URL.Path {
-	case "/api/v1/ascii/banners":
+	case "/api/v1/ascii/banners/", "/api/v1/ascii/banners":
 		if req.Method != "GET" {
 			http.Error(res, "405 - method not allowed", http.StatusMethodNotAllowed)
 			return
