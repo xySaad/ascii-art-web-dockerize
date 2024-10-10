@@ -7,7 +7,7 @@ var prevInput = inputField.value;
 var prevBanner = banners.value;
 
 const getBanners = async () => {
-  const res = await fetch(window.location.origin + "/apis/v1/ascii/banners");
+  const res = await fetch(window.location.origin + "/api/v1/ascii/banners");
   if (!res.ok) {
     // TODO: notify user
     return;
