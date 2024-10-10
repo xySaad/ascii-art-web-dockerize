@@ -1,11 +1,45 @@
+const banners = document.querySelector("#banners");
+const inputField = document.querySelector("#inputField");
 const convertButton = document.querySelector("#convertButton");
 const ascii = document.querySelector(".ascii");
-var converted = false;
+
+var prevInput = inputField.value;
+var prevBanner = banners.value;
+
+const getBanners = async () => {
+  const res = await fetch(window.location.origin + "/api/v1/ascii/banners");
+  if (!res.ok) {
+    // TODO: notify user
+    return;
+  }
+
+  banners.innerHTML = "";
+
+  const bannersList = (await res.text()).split(",");
+
+  bannersList.forEach((banner) => {
+    if (banner === "") {
+      return;
+    }
+    const option = document.createElement("option");
+    option.value = banner;
+    option.textContent = banner;
+    banners.appendChild(option);
+  });
+};
+getBanners();
 
 const handleConvertClick = async () => {
-  converted = true;
-  const inputField = document.querySelector("#inputField");
-  const banners = document.querySelector("#banners");
+  if (
+    inputField.value === "" ||
+    (inputField.value === prevInput && banners.value === prevBanner)
+  ) {
+    return;
+  }
+
+  prevInput = inputField.value;
+  prevBanner = banners.value;
+
   const res = await fetch(window.location.origin + "/api/v1/ascii/", {
     method: "POST",
     body: `input=${encodeURIComponent(inputField.value)}&banner=${
@@ -14,17 +48,14 @@ const handleConvertClick = async () => {
   });
   ascii.textContent = await res.text();
 };
-const banners = document.querySelector("#banners");
+
 banners.addEventListener("change", () => {
-  if (converted) {
-    handleConvertClick();
-  }
+  handleConvertClick();
 });
+
 convertButton.addEventListener("click", handleConvertClick);
 const clear = document.querySelector("#clear");
 
 clear.addEventListener("click", () => {
-  converted = false;
-  const inputField = document.querySelector("#inputField");
   inputField.value = "";
 });
