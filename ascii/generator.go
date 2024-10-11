@@ -12,24 +12,35 @@ type Args struct {
 	BannerName string
 }
 
-func Generate(args Args) (ascii string, errs error) {
+type Ascii struct {
+	Value   string
+	Message string
+}
+
+func Generate(args Args) (ascii Ascii, errs error) {
 	plainTxt, err := os.ReadFile("./assets/banners/" + args.BannerName + ".txt")
 	if err != nil {
-		return "", err
+		return Ascii{Value: "", Message: "Error Opening Font File"}, err
 	}
 	txt := strings.ReplaceAll(string(plainTxt), "\r\n", "\n")
 	fileLines := strings.Split(txt, "\n")
 	if len(fileLines) != 856 {
 		messsage := "banner file " + args.BannerName + " has been modified and is invalid"
-		return "", errors.New(messsage)
+		return Ascii{Value: "", Message: "Corrupted Font File"}, errors.New(messsage)
 	}
 	// Fetch the input from command-line arguments and clean it
-	userInput := utils.CleanString(args.Text)
+	userInput, hasInvalidCharacters := utils.CleanString(args.Text)
+
+	if hasInvalidCharacters {
+		ascii.Message = "Removed Invalid Characters"
+	}
 
 	if len(userInput) == 0 {
-		return "", nil
+		ascii.Value = ""
+		return ascii, nil
 	} else if userInput == "\\n" {
-		return "\n", nil
+		ascii.Value = "\\n"
+		return ascii, nil
 	}
 	// Split the input based on the newline delimiter
 	inputWords := strings.Split(userInput, "\n")
@@ -40,7 +51,7 @@ func Generate(args Args) (ascii string, errs error) {
 	// Iterate through each word and process it
 	for _, word := range inputWords {
 		if word == "" || word == "\n" {
-			ascii += "\n"
+			ascii.Value += "\n"
 			continue
 		}
 
@@ -54,8 +65,12 @@ func Generate(args Args) (ascii string, errs error) {
 			}
 
 			// Output the constructed line
-			ascii += renderedLine + "\n"
+			ascii.Value += renderedLine + "\n"
 		}
 	}
+	if !hasInvalidCharacters {
+		ascii.Message = "Success"
+	}
+
 	return ascii, nil
 }

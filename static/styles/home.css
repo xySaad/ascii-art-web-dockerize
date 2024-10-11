@@ -187,3 +187,11 @@ body:has(#tm:checked) #convertButton:hover {
 .banners option {
     color: black;
 }
+
+
+.actionArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}

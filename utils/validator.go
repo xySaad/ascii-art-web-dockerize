@@ -5,16 +5,20 @@ import (
 )
 
 // Cleanstring removes all unprintable characters from a string
-func CleanString(s string) string {
+func CleanString(s string) (string, bool) {
 	var cleanString []rune
-
+	var hasInvalidCharacters bool
 	for _, r := range s {
 		if (r >= 32 && r <= 126) || r == 10 { // Check if the character is printable
 			cleanString = append(cleanString, r)
+			continue
+		} else {
+			hasInvalidCharacters = true
 		}
+
 	}
 
-	return string(cleanString)
+	return string(cleanString), hasInvalidCharacters
 }
 
 func IsEmpty(text []string) bool {

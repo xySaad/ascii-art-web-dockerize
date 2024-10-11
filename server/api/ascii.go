@@ -65,13 +65,13 @@ func Ascii(res http.ResponseWriter, req *http.Request) {
 			http.Error(res, "400 - bad request", http.StatusBadRequest)
 			return
 		}
-		asciiText, err := ascii.Generate(args)
+		asciiData, err := ascii.Generate(args)
 		if err != nil {
 			http.Error(res, "500 - internal server error", http.StatusInternalServerError)
 			return
 		}
-		res.Header().Set("Content-Type", "text/plain")
-		res.Write([]byte(asciiText))
+		res.Header().Set("Content-Type", "application/json")
+		res.Write([]byte("{" + "\"ascii\": " + "\"" + utils.Escape(asciiData.Value) + "\"" + ", \"message\": " + "\"" + asciiData.Message + "\"" + "}"))
 	default:
 		// Set the 404 status code
 		res.WriteHeader(http.StatusNotFound)

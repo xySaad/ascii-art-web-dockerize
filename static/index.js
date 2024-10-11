@@ -2,6 +2,7 @@ const banners = document.querySelector("#banners");
 const inputField = document.querySelector("#inputField");
 const convertButton = document.querySelector("#convertButton");
 const ascii = document.querySelector(".ascii");
+const message = document.querySelector(".message");
 
 var prevInput = inputField.value;
 var prevBanner = banners.value;
@@ -46,7 +47,9 @@ const handleConvertClick = async () => {
       banners.value
     }`,
   });
-  ascii.textContent = await res.text();
+  const json = await res.json();
+  ascii.textContent = json.ascii;
+  message.textContent = json.message;
 };
 
 banners.addEventListener("change", () => {
