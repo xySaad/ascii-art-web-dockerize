@@ -4,14 +4,20 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
+	"strings"
 )
 
 func StaticHandler(res http.ResponseWriter, req *http.Request) {
 
-	fs := http.FileServer(http.Dir("./static"))
-
+	path := "./static"
+	if req.URL.Path == "/" {
+		path += "/index.html"
+	} else {
+		path += req.URL.Path
+	}
 	// Attempt to open the requested file
-	_, err := os.Stat("./static" + req.URL.Path)
+	fileInfo, err := os.Stat(path)
 
 	if os.IsNotExist(err) {
 		// Set the 404 status code
@@ -36,6 +42,30 @@ func StaticHandler(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// Serve the file if found
-	fs.ServeHTTP(res, req)
+	res.Header().Add("Content-Length", strconv.Itoa(int(fileInfo.Size())))
+
+	fileName := strings.Split(req.URL.Path, ".")
+
+	switch fileName[len(fileName)-1] {
+	case "js":
+		res.Header().Add("Content-Type", "application/javascript")
+	case "css":
+		res.Header().Add("Content-Type", "text/css")
+	case "html":
+		res.Header().Add("Content-Type", "text/html")
+	}
+	file, err := os.ReadFile(path)
+
+	if err != nil {
+		http.Error(res, "500 - internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	res.WriteHeader(200)
+
+	_, err = res.Write(file)
+
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "error sending static file\n", err)
+	}
 }
