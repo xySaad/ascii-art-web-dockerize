@@ -7,12 +7,16 @@ WORKDIR /src
 # Copy nessecary files for build process
 COPY app ./
 
+# Set environemt variable for static go compling
+ENV CGO_ENABLED=0
+
 # Build the golang application into /app
 RUN go build -o /app/ascii-art-web
 
 
 ## Stage 2
 FROM alpine:3.20.3
+
 
 # Set working directory to /app
 WORKDIR /app
