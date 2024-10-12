@@ -74,17 +74,9 @@ This project is **Dockerized** for easy deployment. We use a multi-stage Docker 
 
 This ensures that the final image is lightweight and only contains what’s necessary to run the ASCII art application in both terminal and web modes.
 
-### To build the Docker image:
+### To build and run the Docker image:
 
-```bash
-docker build -t ascii-art-web .
-```
-
-### To run the Docker container:
-
-```bash
-docker run -p 8080:8080 ascii-art-web
-```
+you can simply use ./docker.sh
 
 ## ⚠️ Error Handling
 
