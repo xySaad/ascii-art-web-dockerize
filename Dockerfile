@@ -25,7 +25,8 @@ WORKDIR /app
 COPY --from=build /app/ .
 
 # Copy assets from host
-COPY assets static ./
+COPY assets assets/
+COPY static static/
 
 # Expose port 8080
 EXPOSE 8080
