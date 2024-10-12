@@ -76,7 +76,7 @@ This ensures that the final image is lightweight and only contains what’s nece
 
 ### To build and run the Docker image:
 
-you can simply use ./docker.sh
+**you can simply use ./docker.sh**
 
 ## ⚠️ Error Handling
 
