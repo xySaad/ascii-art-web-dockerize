@@ -15,7 +15,7 @@ RUN go build -o /app/ascii-art-web
 
 
 ## Stage 2
-FROM alpine:3.20.3
+FROM alpine:3.20.3 AS final
 
 
 # Set working directory to /app
